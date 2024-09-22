@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button } from '@mui/material';
+import SideBar from './Sidebar';
 
 const Chat = () => {
   const [conversations, setConversations] = useState([]);
@@ -107,6 +108,7 @@ const Chat = () => {
 
   return (
     <div>
+      <SideBar/>
       <div className="info">
         <div className="user-info">
           <img src="./pic/avatar.png" alt="Avatar" className="avatar" />
