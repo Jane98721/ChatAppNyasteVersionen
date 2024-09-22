@@ -1,0 +1,39 @@
+body {
+  background-color: pink;
+}
+
+.Formstyle {
+  background-color: white;
+  padding: 120px ;
+  margin: 50px 700px;
+  width: 220px;
+  height: 380px;
+}
+
+.toggleBtn {
+  padding: 20px 20px 0px 20px;
+  margin: 0px 0px 0px 820px;
+}
+
+.forms {
+    background-color: white;
+    padding: 20px ;
+    margin: 50px 700px;
+    width: 220px;
+    height: 380px;
+  }
+  
+.myText{
+
+  background-color: white;
+  margin: 50px 700px;
+  width: 250px;
+
+}
+
+.navbar {
+  
+  background-color: white;
+  color:black;
+  display: flex;
+}
