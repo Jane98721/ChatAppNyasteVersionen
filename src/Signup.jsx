@@ -1,4 +1,5 @@
 import React, { useState, useEffect} from 'react'
+import {useNavigate} from 'react-router-dom'
 
 const Signup = () => {
 const [username, setUserName] = useState ("")
@@ -7,6 +8,9 @@ const [password, setPassword] = useState ("")
 const [CSRFToken, setCSRF] = useState ("")
 const [submitted, setSubmitted] = useState (false)
 const [error, setError] = useState (false)
+
+const navigate = useNavigate ()
+
 
 useEffect(() => {
     const fetchData = async () => {
@@ -64,6 +68,8 @@ const register = async (data) => {
         if (response.ok) {
           setSubmitted(true)
           setError("")
+
+          navigate('/Login')
 
         } else {
   
@@ -143,8 +149,7 @@ return (
 
 <br></br>
 
-
-    {submitted && !error && (
+{submitted && !error && (
         <h1 className="RegMsg"> Registration succeeded </h1>
     )}
     {error && ( 

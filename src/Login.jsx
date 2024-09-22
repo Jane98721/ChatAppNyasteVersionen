@@ -5,6 +5,7 @@ const Login = () => {
 const [userName, setUserName] = useState ("")
 const [password, setPassword] = useState ("")
 const [error, setError] = useState (false)
+const [submitted, setSubmitted] = useState (false)
 const navigate = useNavigate()
 
 

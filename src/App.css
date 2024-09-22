@@ -31,9 +31,12 @@ body {
 
 }
 
-.navbar {
-  
-  background-color: white;
-  color:black;
-  display: flex;
+.avatar{
+height: 150px;
+width: 150px;
+}
+
+.myBtn {
+  border: 2px solid black;
+
 }

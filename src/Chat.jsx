@@ -145,7 +145,9 @@ return (
       </Button>
 
       </form>
-
+      <div>
+<Button className = "myBtn"> Delete </Button>
+</div>
      <div className= "chat-container">
       {messages.map((msg) => (
         <div key = {msg.id} className = {`chat-message ${isUserMessage (msg) ? 'chat-message-right' : 'chat-message-left'}`}>
@@ -153,7 +155,7 @@ return (
         <p>{msg.content} </p>
         <span> {msg.createdBy}</span>
       </div>
-      <Button onClick = {() => deleteMessage(msg.id)}>Delete </Button>
+      
      </div>
       ))}
       </div>

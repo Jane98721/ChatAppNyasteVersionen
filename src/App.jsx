@@ -15,6 +15,7 @@ const App = () => {
     
           <Routes>
             <Route path = "/" element = {<AuthForm />}/>
+            <Route path = "/Login" element = {<Login/>}/>
             <Route path = "/chat" element = {<Chat/>}/>
         
             <Route path = "*" element = {<Navigate to ="/"/>}/>

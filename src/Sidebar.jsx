@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {Button} from '@mui/material'
+import { Button, AppBar, Toolbar, Typography } from '@mui/material'
 
 
 const SideBar = () => {
@@ -9,17 +9,19 @@ const SideBar = () => {
 const handleLogout = () => {
     localStorage.removeItem ('authToken')
     localStorage.removeItem ('username')
-    navigate ('/login')
+    navigate ('/Signup')
 }
 
     return (
-       
-            <nav className="navbar">
-                <Button onClick={handleLogout}>Logout</Button>
-            </nav>
-        );
-    
-    
+        <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          My App
+        </Typography>
+        <Button color="inherit" onClick={handleLogout}>Logout</Button>
+      </Toolbar>
+    </AppBar>
+  );
 }
 
 export default SideBar
