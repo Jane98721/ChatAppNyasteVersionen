@@ -2,6 +2,14 @@ body {
   background-color: pink;
 }
 
+.info{
+  background-color: lightcyan;
+  width: 300px;
+  height: 400px;
+  padding: 0px 40px 0px 20px;
+  margin: 60px 0px 0px 570px;
+}
+
 .Formstyle {
   background-color: white;
   padding: 120px ;
@@ -36,7 +44,15 @@ height: 150px;
 width: 150px;
 }
 
-.myBtn {
-  border: 2px solid black;
 
+
+.chat-message-right {
+  align-self: flex-end;
+  background-color: #d1f7c4; 
+}
+
+
+.chat-message-left {
+  align-self: flex-start;
+  background-color: #f1f1f1;
 }

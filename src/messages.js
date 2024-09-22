@@ -3,15 +3,15 @@ const express = require ('express')
 
 router.post('/messages', authenticateToken, async (req,res) => {
     try {
-    const {content, createdBy, createdAt} = req.body
+    const {content, createdBy} = req.body
 
-    if (!content || !createdBy || !createdAt) {
+    if (!content || !createdBy) {
         return res.status(400).json({error : 'error'})
     }
     const newMessage = newMessage ({  
         content: req.body.content,
         createdBy: req.body.createdBy,
-        createdAt: req.body.creadetAt
+        createdAt: new Date ()
     })
         await newMessage.save()
 

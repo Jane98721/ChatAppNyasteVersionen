@@ -83,6 +83,7 @@ app.post('/auth/token', (req, res) => {
     res.json({accessToken})
 })
 
+localStorage.setItem('authToken', accessToken)
 app.listen(port,() => {
     console.log(`port ${port}` )
 })
