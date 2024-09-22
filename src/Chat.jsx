@@ -9,12 +9,13 @@ const Chat = () => {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
     const navigate = useNavigate()
+    const [conversationId, setConversationId] = useState ('')
     const [username, setUsername] = useState();
     const [avatar, setAvatar] = useState('');
 
     useEffect (() => {
 
-        const fetchMessages = async () => {
+        const fetchMessages = async (convId) => {
             const token = localStorage.getItem('authToken')
             if(!token) {
                 console.error('error')
@@ -23,11 +24,12 @@ const Chat = () => {
             }
     
             try {
-     const response = await fetch(`${ 'https://chatify-api.up.railway.app/messages'}`, {
+            
+            const response = await fetch('https://chatify-api.up.railway.app/messages', {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            'accept': 'application/json',
         }
      })
         
@@ -43,21 +45,15 @@ const Chat = () => {
           }
     }
 
-   
-    const storedUsername = localStorage.getItem('username')
-    const storedAvatar = localStorage.getItem('avatar')
-    if(storedUsername) setUsername(storedUsername)
-    if(storedAvatar) setAvatar(storedAvatar)
-    
- fetchMessages ()
+   const storedConversationId = localStorage.getItem('conversationId')
+   setConversationId(storedConversationId)
+   fetchMessages(storedConversationId)
         },[navigate])
 
     const handleSubmit = async(e) => {
         e.preventDefault ()
         
         const token = localStorage.getItem('authToken')
-        
-
         if (!token)
         {
           console.error('No token found')
@@ -68,6 +64,7 @@ const Chat = () => {
             const newMessage = {
                 content: message,
                 createdBy: username,
+                conversationId: conversationId,
                 createdAt: new Date().toISOString () 
             }
 
@@ -89,15 +86,39 @@ const Chat = () => {
                     }  else{
                       const error = await response.json()
                       console.error('Error', error)
-                    }
-                  } catch (error) {
+                  } 
+                }
+                catch (error) {
                     console.error('Error:', error);
                   }
                 }
 
-                const isUserMessage = (msg) => {
-                  return msg.createdBy === username
-                }
+                const deleteMessage = async (messageId) => {
+                  const token =localStorage.getItem('authToken')
+                  if (!token) {
+                    console.error('No token found')
+                    return
+                  }
+
+                  try {
+                    const response = await fetch (`https://chatify-api.up.railway.app/messages/${msgId}`, {
+                    
+                      method: 'DELETE',
+                      headers: {
+                      Authorization: `Bearer ${token}`,
+                    },
+                  })
+                
+
+                if (response.ok) {
+                  setMessages((prevMessages) => prevMessages.filter((msg) => msg.id !== messageId))
+                } else {
+                  console.error("Error", response.statusText)
+                } 
+              } catch (error) {
+                console.error ('error', error)
+              }
+            }
                     
 return (
 
@@ -132,6 +153,7 @@ return (
         <p>{msg.content} </p>
         <span> {msg.createdBy}</span>
       </div>
+      <Button onClick = {() => deleteMessage(msg.id)}>Delete </Button>
      </div>
       ))}
       </div>

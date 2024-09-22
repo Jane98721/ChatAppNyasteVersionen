@@ -6,7 +6,7 @@ const [userName, setUserName] = useState ("")
 const [password, setPassword] = useState ("")
 const [error, setError] = useState (false)
 const navigate = useNavigate()
-const [submitted, setSubmitted] = useState (false)
+
 
 
 const handleUserName =(e) => {
@@ -42,7 +42,7 @@ const handleSubmit = async (e) => {
             const result = await response.json()
             const {token,username} = result
   
-           localStorage.setItem ('authToken', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUxMCwidXNlciI6InN0b3JhQGhvdG1haWwuY29tIiwiZW1haWwiOiJzdG9yYUBob3RtYWlsLmNvbSIsImF2YXRhciI6Ii4vcGljL2F2YXRhci5wbmciLCJpbnZpdGUiOm51bGwsImlhdCI6MTcyNzAxMTY1MywiZXhwIjoxNzI3MDE1MjUzfQ.2D_MqtZto1nodmUsaIBLMUC0o7sAPRphyGhJbIv4WQI')
+           localStorage.setItem ('authToken', token)
            localStorage.setItem ('username', username)
 
            setSubmitted (true)
