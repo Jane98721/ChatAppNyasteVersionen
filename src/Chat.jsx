@@ -8,7 +8,8 @@ const Chat = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
-  const [username, setUsername] = useState(localStorage.getItem('username') || '');
+  // här tar vi ut decodedToken, som i sin tur är extraherad i Login förfarandet
+  const [decodedToken] = useState(JSON.parse(localStorage.getItem('decodedToken')) || '');
 
   useEffect(() => {
     const fetchConversations = async () => {
@@ -79,8 +80,8 @@ const Chat = () => {
     }
 
     const newMessage = {
-      content: message,
-      createdBy: username,
+      text: message,
+      createdBy: decodedToken.user
     };
 
     try {
@@ -106,13 +107,42 @@ const Chat = () => {
     setMessage('');
   };
 
+  const deleteMessage = async (messageId) => {
+    const token =localStorage.getItem('authToken')
+    if (!token) {
+      console.error('No token found')
+      return
+    }
+
+    try {
+      const response = await fetch (`https://chatify-api.up.railway.app/messages/${messageId}`, {
+      
+        method: 'DELETE',
+        headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  
+
+  if (response.ok) {
+    setMessages((prevMessages) => prevMessages.filter((msg) => msg.id !== messageId))
+  } else {
+    console.error("Error", response.statusText)
+  } 
+} catch (error) {
+  console.error ('error', error)
+}
+}
+
+
   return (
     <div>
-      <SideBar/>
+      <SideBar />
       <div className="info">
         <div className="user-info">
           <img src="./pic/avatar.png" alt="Avatar" className="avatar" />
-          <h2>Welcome, {username}</h2>
+          {/* Welcome, {username} kommer inte funka, username är alltid undefined */}
+          <h2>Welcome, {decodedToken.user}</h2>
         </div>
         <br />
         <form onSubmit={handleSubmit}>
@@ -127,10 +157,12 @@ const Chat = () => {
         </form>
       </div>
       <div className="chat-container">
+        {/* username är undefined, du måste titta i decodedToken för user (så du får användarnamnet) */}
         {messages.map((msg, index) => (
-          <div key={index} className={`chat-message ${msg.createdBy === username ? 'chat-message-right' : 'chat-message-left'}`}>
+          <div key={index} className={`chat-message ${msg.createdBy === decodedToken.user ? 'chat-message-right' : 'chat-message-left'}`}>
             <div className="message-content">
-              <p>{msg.content}</p>
+              <p>{msg.text}</p> {/* msg.content är ej korrekt property, msg.text är det */}
+              <Button className="myBtn" onClick={() => deleteMessage(msg.id)}>Delete</Button>
             </div>
           </div>
         ))}

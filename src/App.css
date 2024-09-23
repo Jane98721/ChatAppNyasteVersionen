@@ -45,14 +45,14 @@ width: 150px;
 }
 
 
-
-.chat-message-right {
-  align-self: flex-end;
-  background-color: #d1f7c4; 
+.chat-message-left {
+  background-color:yellow;
+  margin-left: 0;
+  margin-right: auto; /* Align to the left */
 }
 
-
-.chat-message-left {
-  align-self: flex-start;
-  background-color: #f1f1f1;
+.chat-message-right {
+  background-color: blue;
+  margin-left: 20px, 30px, 40px, 50px; /* Align to the right */
+  margin-right: 0;
 }

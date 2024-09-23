@@ -1,114 +1,115 @@
-import React, { useState} from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
-const [userName, setUserName] = useState ("")
-const [password, setPassword] = useState ("")
-const [error, setError] = useState (false)
-const [submitted, setSubmitted] = useState (false)
-const navigate = useNavigate()
+  const [userName, setUserName] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+  const navigate = useNavigate()
 
 
 
-const handleUserName =(e) => {
+  const handleUserName = (e) => {
     setUserName(e.target.value)
-}
+  }
 
-const handlePassword = (e) => {
+  const handlePassword = (e) => {
     setPassword(e.target.value)
-}
+  }
 
 
-const handleSubmit = async (e) => {
-    e.preventDefault ()
+  const handleSubmit = async (e) => {
+    e.preventDefault()
 
-        const data = {
-            username: userName,
-            password: password
-        }
+    const data = {
+      username: userName,
+      password: password
+    }
 
 
     try {
-        const response = await fetch(`${'https://chatify-api.up.railway.app/auth/token'
-            
+      const response = await fetch(`${'https://chatify-api.up.railway.app/auth/token'
+
         }`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data)
-          })
-  
-          if (response.ok) {
-            const result = await response.json()
-            const {token,username} = result
-  
-           localStorage.setItem ('authToken', token)
-           localStorage.setItem ('username', username)
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      })
 
-           setSubmitted (true)
-           setError ("")  
-           navigate('/Chat')
+      if (response.ok) {
+        const result = await response.json()
+        const token = result.token
+        const decodedToken = atob(token.split('.')[1])
 
-        } else {
-          const errorData = await response.json();
-          setError(errorData.message || 'Invalid credentials') 
-          } 
-  
-        } catch (error) {
-          console.error('Error:', error);
-          setError('Login failed')
-        }
-      } 
-      
+        localStorage.setItem('authToken', token)
+        localStorage.setItem('decodedToken', decodedToken);
 
-return (
+        setSubmitted(true)
+        setError("")
+        navigate('/Chat')
 
-    <div className = "forms">
-    <form onSubmit = {handleSubmit}>
-<label className='UserNamelabel'> Username </label>
+      } else {
+        const errorData = await response.json();
+        setError(errorData.message || 'Invalid credentials')
+      }
 
-<br></br>
-<br></br>
+    } catch (error) {
+      console.error('Error:', error);
+      setError('Login failed')
+    }
+  }
+
+
+  return (
+
+    <div className="forms">
+      <form onSubmit={handleSubmit}>
+        <label className='UserNamelabel'> Username </label>
+
+        <br></br>
+        <br></br>
 
         <input
-        onChange = {handleUserName}
-        className = "input"
-        value = {userName}
-        type = "userName"
-        placeholder = "Enter your username"
+          onChange={handleUserName}
+          className="input"
+          value={userName}
+          type="userName"
+          placeholder="Enter your username"
         />
-<br></br>
-<br/><br/>
+        <br></br>
+        <br /><br />
 
-<label className='Passwordlabel'>  Password </label>
-<br></br>
-<br></br>
+        <label className='Passwordlabel'>  Password </label>
+        <br></br>
+        <br></br>
         <input
-        onChange = {handlePassword}
-        className = "input"
-        value = {password}
-        type = "password"
-        placeholder ="Enter your password"
+          onChange={handlePassword}
+          className="input"
+          value={password}
+          type="password"
+          placeholder="Enter your password"
         />
 
-<br></br>
-<br></br>
-<br></br>
-<button  className = "btn" type= "submit"> Login
+        <br></br>
+        <br></br>
+        <br></br>
+        <button className="btn" type="submit"> Login
 
-</button>
+        </button>
 
-<br></br>
-</form>
-    {error && (
+        <br></br>
+      </form>
+      {error && (
 
-    <h1 className="RegMsg"> {error} </h1>
-)}
+        <h1 className="RegMsg"> {error} </h1>
+      )}
 
 
-</div>
-)
+    </div>
+  )
 }
 
 export default Login
