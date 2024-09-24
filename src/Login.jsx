@@ -42,10 +42,13 @@ const Login = () => {
       if (response.ok) {
         const result = await response.json()
         const token = result.token
-        const decodedToken = atob(token.split('.')[1])
+        const decodedToken = JSON.parse(atob(token.split('.')[1]));
 
-        localStorage.setItem('authToken', token)
-        localStorage.setItem('decodedToken', decodedToken);
+        localStorage.setItem('authToken', token);
+        localStorage.setItem('decodedToken', JSON.stringify(decodedToken));
+        localStorage.setItem('avatar', decodedToken.avatar);
+        localStorage.setItem('username', decodedToken.username);
+        localStorage.setItem('userId', decodedToken.id);
 
         setSubmitted(true)
         setError("")
@@ -66,6 +69,7 @@ const Login = () => {
   return (
 
     <div className="forms">
+      <h2>Log in</h2>
       <form onSubmit={handleSubmit}>
         <label className='UserNamelabel'> Username </label>
 

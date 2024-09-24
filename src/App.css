@@ -1,34 +1,60 @@
 body {
   background-color: pink;
+  height: 500px;
+
 }
 
+.chat-container{
+  background-color: white;
+  width: 1000px;
+  height: 100%;
+  margin-top: 5px;
+  margin-left: 140px;
+
+}
+
+.message-content{
+  background-color: #f1f1f1;
+  display: flex;
+  margin-left: 800px;
+  padding-left: 15px;
+}
+
+
+
+.Container {
+  display: flex;
+  height: 800px;
+
+}
 .info{
-  background-color: lightcyan;
-  width: 300px;
-  height: 400px;
-  padding: 0px 40px 0px 20px;
-  margin: 60px 0px 0px 570px;
+  
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+  margin: 10px;
+  
 }
 
 .Formstyle {
   background-color: white;
   padding: 120px ;
-  margin: 50px 700px;
+  margin: 50px 500px;
   width: 220px;
-  height: 380px;
+  height: 377px;
 }
 
 .toggleBtn {
   padding: 20px 20px 0px 20px;
-  margin: 0px 0px 0px 820px;
+  margin: 0px 0px 0px 650px;
 }
 
 .forms {
     background-color: white;
-    padding: 20px ;
-    margin: 50px 700px;
+    padding: 120px ;
+    margin: 50px 500px;
     width: 220px;
-    height: 380px;
+    height: 377px;
   }
   
 .myText{
@@ -40,19 +66,72 @@ body {
 }
 
 .avatar{
-height: 150px;
-width: 150px;
+width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.avatar-chat {
+  margin-left: 955px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 
-.chat-message-left {
-  background-color:yellow;
-  margin-left: 0;
-  margin-right: auto; /* Align to the left */
+.message-fake {
+  max-width: 50%;
+  background-color: #f1f1f1;
+  margin-right: 800px;
+
 }
 
-.chat-message-right {
-  background-color: blue;
-  margin-left: 20px, 30px, 40px, 50px; /* Align to the right */
-  margin-right: 0;
+.myBtn {
+  margin-left: 10px;
+  font-size: 12px;
+  color: #ff00b7;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
+
+
+
+.Bar {
+  background-color: #ff00b7;
+
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  background-color: lightpink;
+  color: coral;
+  transition: transform 0.3s ease;
+  transform: translateX(-100%); 
+  z-index: 1000;
+  padding: 10px;
+}
+
+.sidebar.open {
+  transform: translateX(0); 
+}
+
+.sidebar.closed {
+  transform: translateX(-100%);
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+
+li:hover {
+  background-color: #575757;
+}
+
