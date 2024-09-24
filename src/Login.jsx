@@ -69,7 +69,7 @@ const Login = () => {
   return (
 
     <div className="forms">
-      <h2>Log in</h2>
+      <h2> Login</h2>
       <form onSubmit={handleSubmit}>
         <label className='UserNamelabel'> Username </label>
 

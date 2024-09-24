@@ -8,6 +8,7 @@ const [password, setPassword] = useState ("")
 const [CSRFToken, setCSRF] = useState ("")
 const [submitted, setSubmitted] = useState (false)
 const [error, setError] = useState (false)
+const [msg, setMsg] = useState("")
 
 const navigate = useNavigate ()
 
@@ -68,8 +69,10 @@ const register = async (data) => {
         if (response.ok) {
           setSubmitted(true)
           setError("")
-
-          navigate('/Login')
+          setMsg('Registration succeeded')
+          setTimeout(() => {
+            navigate('/login');
+        }, 3000);
 
         } else {
   
@@ -148,14 +151,16 @@ return (
 </button>
 
 <br></br>
-
+{msg && <p>{msg}</p>}
 {submitted && !error && (
-        <h1 className="RegMsg"> Registration succeeded </h1>
+        <h1 className="RegMsg"></h1>
     )}
     {error && ( 
         <h1 className="RegMsg"> {error}</h1>
     )}
 </form>
+
+
 
 </div>
 )
