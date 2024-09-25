@@ -38,7 +38,6 @@ const toggleSideNav = () => {
     </AppBar>
 
     <div className = {`sidebar ${isOpen ? 'open' : 'closed'}`}>
-    <h2> Account </h2>
     <ul>
       <Button color="inherit" onClick={handleLogout}>Logout</Button>
     </ul>

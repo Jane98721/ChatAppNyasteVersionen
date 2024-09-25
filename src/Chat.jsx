@@ -9,6 +9,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]); 
   // här tar vi ut decodedToken, som i sin tur är extraherad i Login förfarandet
   const [decodedToken] = useState(JSON.parse(localStorage.getItem('decodedToken')) || '');
+ 
 
   const [fakeChat] = useState([{
     "text": "Tja tja, hur mår du?",
@@ -60,15 +61,22 @@ const Chat = () => {
       }
     };
 
-    fetchMessages();
+    fetchMessages()
+
+    const intervalId = setInterval (fetchMessages, 1000)
+
+    return () => clearInterval (intervalId)
   }, [navigate, decodedToken]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+
     if (!message.trim()) {
       return;
     }
+
 
     try {
       const response = await fetch('https://chatify-api.up.railway.app/messages', {
@@ -86,6 +94,7 @@ const Chat = () => {
       if (response.ok) {
         const result = await response.json();
         setMessages((prevMessages) => [...prevMessages, result]);
+       
       } else {
         console.error('Error posting message:', response.statusText);
       }
@@ -93,7 +102,8 @@ const Chat = () => {
       console.error('Error:', error);
     }
 
-    setMessage('');
+    setMessage(''); 
+   
   };
 
   const deleteMessage = async (messageId) => {
@@ -153,9 +163,9 @@ const Chat = () => {
         {/* username är undefined, du måste titta i decodedToken för user (så du får användarnamnet) */}
         {messages.map((msg, index) => (
           <div key={index} className={`chat-message ${msg.user === decodedToken.user ? 'chat-message-right' : 'chat-message-left'}`}>
-           <img src= 'https://i.pravatar.cc/200' alt="avatar" className="avatar-chat" />
+           <img src= {msg.avatar || 'https://i.pravatar.cc/150?img=50'} alt="avatar" className="avatar-chat" />
+            <p className="user-name"> {msg.username === decodedToken.user? decodedToken.user: decodedToken.user}</p>
             <div className="message-content">
-            <p> {msg.username === decodedToken.user? decodedToken.user: msg.username}</p>
               <p>{msg.text} </p>
           
             <Button className="myBtn" onClick={() => deleteMessage(msg.id)}>Delete</Button>

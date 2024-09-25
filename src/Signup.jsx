@@ -86,8 +86,6 @@ const register = async (data) => {
       }
 }
 
-
-
 const handleSubmit = (e) => {
     e.preventDefault ()
 

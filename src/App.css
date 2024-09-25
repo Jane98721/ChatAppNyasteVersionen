@@ -6,21 +6,20 @@ body {
 
 .chat-container{
   background-color: white;
-  width: 1000px;
+  width: 800px;
   height: 100%;
   margin-top: 5px;
   margin-left: 140px;
-
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .message-content{
   background-color: #f1f1f1;
   display: flex;
-  margin-left: 800px;
+  margin-left: 600px;
   padding-left: 15px;
 }
-
-
 
 .Container {
   display: flex;
@@ -73,17 +72,21 @@ width: 40px;
 }
 
 .avatar-chat {
-  margin-left: 955px;
+  margin-left: 745px;
   width: 40px;
   height: 40px;
   border-radius: 50%;
 }
 
+.user-name {
+  margin-left: 730px;
+  font-weight: bold;
+}
+
 
 .message-fake {
-  max-width: 50%;
   background-color: #f1f1f1;
-  margin-right: 800px;
+  margin-right:600px;
 
 }
 
@@ -93,10 +96,7 @@ width: 40px;
   color: #ff00b7;
   border: none;
   background: none;
-  cursor: pointer;
 }
-
-
 
 .Bar {
   background-color: #ff00b7;
@@ -111,10 +111,8 @@ width: 40px;
   width: 250px;
   background-color: lightpink;
   color: coral;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
   transform: translateX(-100%); 
-  z-index: 1000;
-  padding: 10px;
 }
 
 .sidebar.open {
@@ -129,7 +127,6 @@ ul {
   list-style-type: none;
   padding: 0;
 }
-
 
 li:hover {
   background-color: #575757;
