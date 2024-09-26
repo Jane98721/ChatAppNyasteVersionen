@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button } from '@mui/material';
 import SideBar from './Sidebar';
+import picture from '../pic/avatar.png'
 
 const Chat = () => {
   const navigate = useNavigate();
