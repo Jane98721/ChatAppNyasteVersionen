@@ -74,7 +74,7 @@ const Chat = () => {
       
       console.log('Skickar meddelande till API:', {
       text: message,
-      username: decodedToken.username,
+      user: decodedToken.user,
       avatar: avatar,
     });
 
@@ -86,7 +86,7 @@ const Chat = () => {
         },
         body: JSON.stringify({
           text: message,
-          username: decodedToken.username,
+          username: decodedToken.user,
           avatar: avatar,
       }),
     })
@@ -166,12 +166,12 @@ const Chat = () => {
         ))}
 
         {messages.map((msg, index) => (
-          <div key={index} className={`chat-message ${msg.username === decodedToken.username ? 'chat-message-right' : 'chat-message-left'}`}>
+          <div key={index} className={`chat-message ${msg.user === decodedToken.user ? 'chat-message-right' : 'chat-message-left'}`}>
            <img src= {msg.avatar || 'https://i.pravatar.cc/150?img=50'} alt="avatar" className="avatar-chat" />
            <p className="user-name"> {msg.user=== decodedToken.user? decodedToken.user : decodedToken.user}</p>
               <div className ="message-content">
                <p>{msg.text} </p>
-              {msg.username === decodedToken.username && (
+              {msg.user === decodedToken.username && (
                   <Button className="delete-btn" onClick={() => deleteMessage(msg.id)}>Delete</Button>
               )}
         </div>
