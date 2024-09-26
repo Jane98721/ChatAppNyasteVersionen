@@ -7,7 +7,6 @@ const Chat = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]); 
-  // här tar vi ut decodedToken, som i sin tur är extraherad i Login förfarandet
   const [decodedToken] = useState(JSON.parse(localStorage.getItem('decodedToken')) || '');
  
 
@@ -32,20 +31,12 @@ const Chat = () => {
 ]);
 
   useEffect(() => {
-
     const fetchMessages = async () => {
-      const token = localStorage.getItem('authToken');
-      if (!token) {
-        console.error('No token found');
-        navigate('/login');
-        return;
-      }
-
       try {
         const response = await fetch('https://chatify-api.up.railway.app/messages', {
           method: 'GET',
           headers: {
-            'Authorization': `Bearer ${token}`,
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
             'Accept': 'application/json',
           },
         });
@@ -66,7 +57,7 @@ const Chat = () => {
     const intervalId = setInterval (fetchMessages, 1000)
 
     return () => clearInterval (intervalId)
-  }, [navigate, decodedToken]);
+  }, []);
 
 
   const handleSubmit = async (e) => {
@@ -77,8 +68,16 @@ const Chat = () => {
       return;
     }
 
-
     try {
+      const avatar = 'https://i.pravatar.cc/150?img=3'; 
+      
+      
+      console.log('Skickar meddelande till API:', {
+      text: message,
+      username: decodedToken.username,
+      avatar: avatar,
+    });
+
       const response = await fetch('https://chatify-api.up.railway.app/messages', {
         method: 'POST',
         headers: {
@@ -88,11 +87,12 @@ const Chat = () => {
         body: JSON.stringify({
           text: message,
           username: decodedToken.username,
-          avatar: localStorage.getItem('avatar') || './pic/avatar.png',
+          avatar: avatar,
       }),
     })
       if (response.ok) {
         const result = await response.json();
+        console.log('Svar från API:', result);
         setMessages((prevMessages) => [...prevMessages, result]);
        
       } else {
@@ -114,6 +114,9 @@ const Chat = () => {
     }
 
     try {
+
+      console.log('Försöker radera meddelande med id:', messageId);
+
       const response = await fetch (`https://chatify-api.up.railway.app/messages/${messageId}`, {
       
         method: 'DELETE',
@@ -124,6 +127,9 @@ const Chat = () => {
   
 
   if (response.ok) {
+
+    console.log('Meddelande raderat från API:', messageId);
+
     setMessages((messages) => messages.filter((msg) => msg.id !== messageId))
   } else {
     console.error("Error", response.statusText)
@@ -140,7 +146,6 @@ const Chat = () => {
       <div className="Container">
       <div className="info">
         <img src= {localStorage.getItem('avatar') || "./pic/avatar.png"}  alt="Avatar" className="avatar" />
-          {/* Welcome, {username} kommer inte funka, username är alltid undefined */}
           <h2>Welcome, {decodedToken.user}</h2> 
         </div>
         <div className="user-info">
@@ -160,19 +165,20 @@ const Chat = () => {
           </div>
         ))}
 
-        {/* username är undefined, du måste titta i decodedToken för user (så du får användarnamnet) */}
         {messages.map((msg, index) => (
-          <div key={index} className={`chat-message ${msg.user === decodedToken.user ? 'chat-message-right' : 'chat-message-left'}`}>
+          <div key={index} className={`chat-message ${msg.username === decodedToken.username ? 'chat-message-right' : 'chat-message-left'}`}>
            <img src= {msg.avatar || 'https://i.pravatar.cc/150?img=50'} alt="avatar" className="avatar-chat" />
-            <p className="user-name"> {msg.username === decodedToken.user? decodedToken.user: decodedToken.user}</p>
-            <div className="message-content">
-              <p>{msg.text} </p>
-          
-            <Button className="myBtn" onClick={() => deleteMessage(msg.id)}>Delete</Button>
-
-          
+           <p className="user-name"> {msg.user=== decodedToken.user? decodedToken.user : decodedToken.user}</p>
+              <div className ="message-content">
+               <p>{msg.text} </p>
+              {msg.username === decodedToken.username && (
+                  <Button className="delete-btn" onClick={() => deleteMessage(msg.id)}>Delete</Button>
+              )}
         </div>
-          </div>))}<form onSubmit={handleSubmit}>
+        </div>
+        ))}
+          
+          <form onSubmit={handleSubmit}>
           <TextField
             className="myText"
             label="Message"

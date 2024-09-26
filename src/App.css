@@ -17,8 +17,9 @@ body {
 .message-content{
   background-color: #f1f1f1;
   display: flex;
-  margin-left: 600px;
+  margin-left: 550px;
   padding-left: 15px;
+  padding-bottom: 20px;
 }
 
 .Container {
@@ -47,6 +48,7 @@ body {
   padding: 20px 20px 0px 20px;
   margin: 0px 0px 0px 650px;
 }
+
 
 .forms {
     background-color: white;
@@ -86,17 +88,10 @@ width: 40px;
 
 .message-fake {
   background-color: #f1f1f1;
-  margin-right:600px;
+  margin-right:550px;
 
 }
 
-.myBtn {
-  margin-left: 10px;
-  font-size: 12px;
-  color: #ff00b7;
-  border: none;
-  background: none;
-}
 
 .Bar {
   background-color: #ff00b7;
