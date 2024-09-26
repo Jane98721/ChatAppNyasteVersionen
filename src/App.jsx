@@ -1,6 +1,6 @@
 import React from 'react'
 import './App.css'
-import AuthForm from './AuthForm'
+import Authform from './Authform'
 import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom'
 import Chat from './Chat'
 import './Sidebar'
@@ -14,7 +14,7 @@ const App = () => {
         <Router>
     
           <Routes>
-            <Route path = "/" element = {<AuthForm />}/>
+            <Route path = "/" element = {<Authform />}/>
             <Route path = "/Login" element = {<Login/>}/>
             <Route path = "/chat" element = {<Chat/>}/>
             <Route path = "*" element = {<Navigate to ="/"/>}/>

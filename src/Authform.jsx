@@ -3,7 +3,7 @@ import Signup from "./Signup";
 import Login from "./Login";
 import './App.css'
 
-const AuthForm= () => {
+const Authform= () => {
 
 const [showSignup, setShowSignup] = useState (true)
 
@@ -28,4 +28,4 @@ return (
 
 
 
-export default AuthForm
+export default Authform
